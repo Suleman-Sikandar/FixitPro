@@ -15,7 +15,6 @@ trait HasPermissionsTrait
         $currentUri = Route::getFacadeRoot()->current()->uri();
         $adminUserId = Auth::guard('admin')->user()->id;
         $resultAdminRoles = AdminUserRole::where('admin_ID', $adminUserId)->get();
-
         if ($resultAdminRoles) {
             foreach ($resultAdminRoles as $rowAdminRole) {
                 $result = RolePrivilege::hasPermission($rowAdminRole->role_ID, $currentUri);

@@ -3,6 +3,9 @@
 if (!function_exists('validatePermissions')) {
     function validatePermissions($slug)
     {
+        if (auth('admin')->check() && auth('admin')->user()->role_id == 1) {
+            return true;
+        }
         return \App\Traits\HasPermissionsTrait::getModulesPermissionsBySlug($slug);
     }
 }
@@ -22,7 +25,7 @@ if (!function_exists('ajaxResponse')) {
     {
         return response()->json([
             'status' => $code,
-            'responseCode' => $code, // Keep for backward compatibility if any
+            'responseCode' => $code, 
             'msg' => $msg,
             'html' => $html,
         ]);
